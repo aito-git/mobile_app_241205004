@@ -44,21 +44,17 @@ public class MainActivity extends AppCompatActivity {
             var text = binding.editTextText2.getText().toString();
             binding.text.setText(text);
         });
-        binding.editTextText2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                binding.text.setText(s.toString());
-            }
 
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        prefDataStore.getString("name")
+                .ifPresent(name -> binding.text.setText(name));
 
-            }
+    }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        prefDataStore.getString("name")
+                .ifPresent(name -> binding.text.setText(name));
 
-            }
-        });
     }
 }
